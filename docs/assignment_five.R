@@ -41,7 +41,37 @@ risch_subset <- risch_receipts %>%
   filter(is_individual == TRUE)
 
 glimpse(simpson_subset)
-  
+
+# grouping by contributor and looking for the top 5 donors
+simpson_top5 <- simpson_subset %>% 
+  group_by(contributor_name) %>% 
+  summarise(total_given = sum(contribution_receipt_amount, 
+                              na.rm = TRUE)) %>% 
+  slice_max(order_by = total_given, n = 5) %>% 
+  mutate(recipient = "Simpson")
+
+fulcher_top5 <- fulcher_subset %>% 
+  group_by(contributor_name) %>% 
+  summarise(total_given = sum(contribution_receipt_amount, 
+                              na.rm = TRUE)) %>% 
+  slice_max(order_by = total_given, n = 5) %>% 
+  mutate(recipient = "Fulcher")
+
+crapo_top5 <- crapo_subset %>% 
+  group_by(contributor_name) %>% 
+  summarise(total_given = sum(contribution_receipt_amount, 
+                              na.rm = TRUE)) %>% 
+  slice_max(order_by = total_given, n = 5) %>% 
+  mutate(recipient = "Crapo")
+
+risch_top5 <- risch_subset %>% 
+  group_by(contributor_name) %>% 
+  summarise(total_given = sum(contribution_receipt_amount, 
+                              na.rm = TRUE)) %>% 
+  slice_max(order_by = total_given, n = 5) %>% 
+  mutate(recipient = "Risch")
+
+glimpse(simpson_top5)
   
   
   
